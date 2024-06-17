@@ -14,7 +14,6 @@ const Page3 = () => {
       })
       .then((res) => {
         setpopResult(res.data.results);
-        console.log("Data fetched successfully:", res.data.results);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -27,7 +26,6 @@ const Page3 = () => {
       })
       .then((res) => {
         setPlayingResult(res.data.results);
-        console.log("Data fetched successfully:", res.data.results);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

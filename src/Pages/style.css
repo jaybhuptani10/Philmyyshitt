@@ -61,7 +61,7 @@
     transition: 0.5s ease-in-out;
   }
   .custom-scrollbar::-webkit-scrollbar {
-    height: 12px;
+    height: 0px;
   }
   
   .custom-scrollbar::-webkit-scrollbar-track {
@@ -76,6 +76,16 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+  .details-card{
+    min-width: 400px;
+    width:400px;
+
+    height: clamp(100px, 110px, 120px);
+  }
+  .details-card h1{
+    font-size: clamp(7px, 14px, 15px);
+    line-height: 1.1rem;
+  }
 
   @media screen and (max-width: 768px) {
     .bg-default{
@@ -88,5 +98,9 @@
     .box-2 {
       right: 5%;
       bottom: 10%;
+    }
+    .details-card{
+      min-width: 100%;
+      width: 100%;
     }
   }

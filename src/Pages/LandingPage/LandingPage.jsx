@@ -11,7 +11,7 @@ const LandingPage = () => {
       }`}
     >
       <Page1 />
-      <div className=" h-[75vh] sm:h-[70vh] w-[100%] px-5 sm:px-20 page-2">
+      <div className=" h-[100vh] sm:h-[70vh] w-[100%] px-5 sm:px-20 page-2">
         <Page2 />
       </div>
       <div className="h-[100vh] w-[100%] px-5 sm:px-20 page-2">

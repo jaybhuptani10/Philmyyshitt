@@ -1,7 +1,9 @@
 import "tailwindcss/tailwind.css";
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Carousel = ({ result }) => {
+  const navigate = useNavigate();
   const carouselRef = useRef(null);
   const scrollLeft = () => {
     carouselRef.current.scrollBy({
@@ -26,13 +28,14 @@ const Carousel = ({ result }) => {
         &lt;
       </button>
       <div
-        className="overflow-x-hidden flex space-x-4 custom-scrollbar"
+        className="overflow-x-scroll flex space-x-4 custom-scrollbar"
         ref={carouselRef}
       >
         {result.map((movie, index) => (
           <div
             key={index}
             className="relative group flex-none w-[16vh] h-[24vh] sm:w-[20vh] sm:h-[30vh] transform transition-transform duration-300 hover:scale-10"
+            onClick={() => navigate(`/movie/${movie.title}`)}
           >
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

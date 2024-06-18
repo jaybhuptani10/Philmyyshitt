@@ -60,6 +60,7 @@ const Movie = () => {
           </div>
           <div className="m-5 w-[40vw] h-[30vh] border-2 border-black"></div>
         </div>
+        <div className="sm:mx-6">hello</div>
       </div>
     </div>
   );

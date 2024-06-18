@@ -20,7 +20,7 @@ const Carousel = ({ result }) => {
     });
   };
   return (
-    <div className="relative p-8">
+    <div className="relative p-8 ">
       <button
         className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#CBD2D0] text-bold text-black p-2 z-10 rounded-full focus:outline-none"
         onClick={scrollLeft}
@@ -28,13 +28,13 @@ const Carousel = ({ result }) => {
         &lt;
       </button>
       <div
-        className="overflow-x-scroll flex space-x-4 custom-scrollbar"
+        className="overflow-x-scroll  flex space-x-4 custom-scrollbar"
         ref={carouselRef}
       >
         {result.map((movie, index) => (
           <div
             key={index}
-            className="relative group flex-none w-[16vh] h-[24vh] sm:w-[20vh] sm:h-[30vh] transform transition-transform duration-300 hover:scale-10"
+            className="relative group flex-none landscape:h-[50vh] landscape:w-[30vh]  w-[16vh] h-[24vh] sm-landscape:w-[20vh] sm-landscape:h-[30vh] transform transition-transform duration-300 hover:scale-10 movie-poster"
             onClick={() => navigate(`/movie/${movie.title}`)}
           >
             <img

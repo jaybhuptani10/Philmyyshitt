@@ -28,7 +28,7 @@ const Navbar = () => {
     return <div>Error: {error}</div>;
   }
 
-  return user ? (
+  return isLoggedIn ? (
     <div className="fixed w-full z-50 bg-transparent h-[10vh] flex items-center justify-center md:portrait:hidden sm:gap-10 nav ">
       <h1
         onClick={() => navigate("/")}
@@ -93,17 +93,9 @@ const Navbar = () => {
             }}
             className="text-white uppercase text-xl tracking-tight cursor-pointer z-50 hover:text-gray-400"
           >
-            Sign IN
+            Profile
           </h1>
-          <h1
-            onClick={() => {
-              navigate("/register");
-              setMenuOpen(false);
-            }}
-            className="text-white uppercase text-xl tracking-tight cursor-pointer hover:text-gray-400"
-          >
-            Create Account
-          </h1>
+
           <h1 className="text-white uppercase text-xl tracking-tight cursor-pointer hover:text-gray-400">
             Cinema
           </h1>

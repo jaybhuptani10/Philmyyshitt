@@ -3,10 +3,13 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/Slice";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -37,6 +40,8 @@ const LoginPage = () => {
       });
 
       notify("Login successful!", "success");
+      // Dispatch login state action
+      dispatch(setUser({ user: userInfo.data, isLoggedIn: true }));
 
       // Wait for 1 second before redirecting
       setTimeout(() => {

@@ -27,11 +27,11 @@ const SearchResults = () => {
 
     fetchData();
   }, [query]);
-  const onSearch = async (type, name) => {
+  const onSearch = async (type, id) => {
     if (type === "tv") {
-      navigate(`/series/${name}`);
+      navigate(`/series/${id}`);
     } else {
-      navigate(`/movie/${name}`);
+      navigate(`/movie/${id}`);
     }
   };
   return (
@@ -44,9 +44,7 @@ const SearchResults = () => {
           {result.length > 0 ? (
             result.map((item) => (
               <li
-                onClick={() =>
-                  onSearch(item.media_type, item.name || item.title)
-                }
+                onClick={() => onSearch(item.media_type, item.id)}
                 key={item.id}
                 className="flex flex-col gap-2 cursor-pointer hover:scale-105 hover:shadow-inner transform transition-transform duration-300 z-1"
               >

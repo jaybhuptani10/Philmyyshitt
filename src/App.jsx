@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./Pages/Login/Register";
 import LoginPage from "./Pages/Login/Login";
 
-// axios.defaults.baseURL = "https://philmyshitt-backend.vercel.app/";
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "https://philmyshitt-backend.vercel.app/";
+// axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.withCredentials = true;
 const App = () => {
   return (

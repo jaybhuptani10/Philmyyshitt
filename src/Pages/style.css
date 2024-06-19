@@ -90,7 +90,12 @@
     height: 20px;
     width: 10px;
   }
-
+  @media screen and (max-width: 1025px){
+    .nav{
+      display: none;
+    
+    }
+  }
   @media screen and (max-width: 468px) {
     .bg-default{
       background-position: center;

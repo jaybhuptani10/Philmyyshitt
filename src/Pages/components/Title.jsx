@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const Themes = ({ id }) => {
-  const credits = "keywords";
+
+const Title = ({ id }) => {
+  const credits = "alternative_titles";
   const [theme, setTheme] = useState([]);
   useEffect(() => {
     const fetchCastData = async () => {
@@ -9,7 +10,8 @@ const Themes = ({ id }) => {
         const response = await axios.get("/api/details", {
           params: { id: id, type: credits },
         });
-        setTheme(response.data.keywords); // Assuming response.data.crew is an array
+        console.log(response.data.titles);
+        setTheme(response.data.titles); // Assuming response.data.crew is an array
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -19,15 +21,14 @@ const Themes = ({ id }) => {
       fetchCastData();
     }
   }, [id]);
-
   return theme.map((item) => (
     <h1
       key={item.id}
-      className="text-white text-xs whitespace-nowrap  bg-[#303840] p-2 mx-2 rounded-md  cursor-pointer"
+      className="text-white text-[8.6px] sm:text-sm whitespace-nowrap   cursor-pointer"
     >
-      {item.name}
+      {item.title},
     </h1>
   ));
 };
 
-export default Themes;
+export default Title;

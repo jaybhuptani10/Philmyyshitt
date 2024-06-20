@@ -35,7 +35,7 @@ const Carousel = ({ result }) => {
           <div
             key={index}
             className="relative group flex-none landscape:h-[50vh] landscape:w-[30vh]  w-[16vh] h-[24vh] sm-landscape:w-[20vh] sm-landscape:h-[30vh] transform transition-transform duration-300 hover:scale-10 movie-poster"
-            onClick={() => navigate(`/movie/${movie.title}`)}
+            onClick={() => navigate(`/movie/${movie.id}`)}
           >
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

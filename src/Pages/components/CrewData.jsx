@@ -4,6 +4,7 @@ import axios from "axios";
 const CrewData = ({ id }) => {
   const states = "images";
   const [crew, setCrew] = useState([]);
+
   useEffect(() => {
     const fetchCastData = async () => {
       try {
@@ -12,7 +13,6 @@ const CrewData = ({ id }) => {
         });
         console.log(response.data.backdrops);
         setCrew(response.data.backdrops);
-        // Assuming response.data.crew is an array
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -22,16 +22,16 @@ const CrewData = ({ id }) => {
       fetchCastData();
     }
   }, [id]);
+
   return (
-    <div>
-      {" "}
-      {crew.map((actor) => (
-        <div key={actor.id}>
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${actor.file_path}`}
-            alt=""
-          />
-        </div>
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 gap-4 p-4">
+      {crew.map((actor, index) => (
+        <img
+          key={index}
+          className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg transform transition duration-200 hover:scale-105"
+          src={`https://image.tmdb.org/t/p/w500/${actor.file_path}`}
+          alt=""
+        />
       ))}
     </div>
   );

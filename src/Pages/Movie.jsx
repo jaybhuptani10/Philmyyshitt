@@ -5,8 +5,10 @@ import Casts from "./components/Casts";
 import Crew from "./components/Crew";
 import Navbar from "./Navbar/Navbar";
 import CrewData from "./components/CrewData";
-import Genre from "./components/Genre";
+import Genre from "./components/General";
 import Themes from "./components/Themes";
+import General from "./components/General";
+import Title from "./components/Title";
 
 const Movie = () => {
   const { id } = useParams();
@@ -49,17 +51,18 @@ const Movie = () => {
   }, [id]);
 
   if (!movie) return <div>Loading...</div>;
-
+  const formatBudget = (budget) => {
+    return (budget / 1000000).toFixed(2) + "M";
+  };
   return (
     <>
       <Navbar />
       <div className="xl:px-40 md:px-10  min-h-screen w-full overflow-hidden flex flex-col text-white">
         <img
-          className="w-[100vw] sm:hidden h-[30vh] sm:h-[60vh] object-cover object-top sm:rounded-xl"
+          className="w-[100vw] sm:hidden h-[30vh] sm:h-[60vh] object-cover object-centre sm:rounded-xl"
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt=""
         />
-
         <div className="flex sm:mt-20 w-full flex-col">
           <div className="flex flex-col  lg:flex-row">
             <div className="m-5 flex gap-5">
@@ -94,12 +97,12 @@ const Movie = () => {
                   {movie.vote_average}
                 </p>
               </div>
-
               <div className="w-[100%]  ">
                 <p className="mx-2 block  lg:block sm:mt-5 sm:mx-0">
                   {movie.overview}
                 </p>
               </div>
+
               <div className="sm:my-20 my-10">
                 <div className="flex justify-around font-extrabold text-sm sm:text-l text-[#6CD4FF] border-b-2 border-[#9F86C0]">
                   <h1
@@ -134,17 +137,64 @@ const Movie = () => {
                   >
                     Genre
                   </h1>
-
-                  <h1
-                    className={`cursor-pointer ${
-                      selectedOption === "Images" ? "active" : ""
-                    }`}
-                    onClick={() => setSelectedOption("Images")}
-                  >
-                    Images
-                  </h1>
                 </div>
                 <div>
+                  {selectedOption === "Details" && (
+                    <>
+                      <div className="flex gap-5 w-[100%] items-center mt-5">
+                        <h1 className="  mx-2 w-[20%] uppercase">Studios</h1>
+                        <div className="h-[1px] w-[15%] bg-white"></div>
+                        <div className="flex w-[15%] sm:w-2/5 flex-wrap gap-2">
+                          {movie.production_companies.map((studio) => (
+                            <General key={studio.id} detail={studio.name} />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-5 items-center mt-5">
+                        <h1 className=" mx-2 w-[20%]  uppercase">Country</h1>
+                        <div className="h-[1px]  w-[15%] bg-white"></div>
+                        <div className="flex w-[20%] sm:w-2/5 flex-wrap gap-2">
+                          {movie.production_countries.map((country) => (
+                            <General key={country.id} detail={country.name} />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-5 items-center mt-5">
+                        <h1 className=" mx-2 w-[20%] uppercase">Status</h1>
+                        <div className="h-[1px] w-[15%] bg-white"></div>
+                        <h1 className="text-white text-xs whitespace-nowrap bg-[#303840] p-2 rounded-md mx-1 cursor-pointer">
+                          {movie.status}
+                        </h1>
+                      </div>
+                      <div className="flex gap-5 items-center mt-5">
+                        <h1 className=" mx-2 w-[20%] uppercase">Budget</h1>
+                        <div className="h-[1px] w-[15%] bg-white"></div>
+                        <h1 className="text-white text-xs whitespace-nowrap bg-[#303840] p-2 rounded-md mx-1 cursor-pointer">
+                          {formatBudget(movie.budget)}
+                        </h1>
+                      </div>
+                      <div className="flex gap-5 items-center mt-5">
+                        <h1 className=" mx-2 w-[20%] uppercase">
+                          Primary Language
+                        </h1>
+                        <div className="h-[1px] w-[15%] bg-white"></div>
+                        <div className="flex w-[20%] sm:w-2/5 flex-wrap gap-4">
+                          {movie.spoken_languages.map((lang) => (
+                            <General key={lang.id} detail={lang.english_name} />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex  gap-6  mt-10">
+                        <h1 className=" mx-2 w-[20%] uppercase">
+                          Alternate Titles
+                        </h1>
+                        <div className="h-[1px] w-[15%] mt-3 bg-white"></div>
+                        <div className="flex flex-wrap w-[20%] gap-2 ">
+                          <Title id={movie.id} />
+                        </div>
+                      </div>
+                    </>
+                  )}
                   {selectedOption === "Cast" && <Casts id={movie.id} />}
                   {selectedOption === "Crew" && <Crew id={movie.id} />}
                   {selectedOption === "Genre" && (
@@ -154,7 +204,7 @@ const Movie = () => {
                         <div className="h-[1px] w-6 sm:w-40 bg-white"></div>
                         <div className="flex flex-wrap gap-4">
                           {movie.genres.map((genre) => (
-                            <Genre key={genre.id} genres={genre.name} />
+                            <General key={genre.id} detail={genre.name} />
                           ))}
                         </div>
                       </div>
@@ -171,7 +221,16 @@ const Movie = () => {
               </div>
             </div>
 
-            <div className="m-5 w-[40vw] h-[30vh] border-2 border-black"></div>
+            <div className="m-5 w-[40vw] h-[30vh]  flex flex-col  justify-center gap-1 ">
+              <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md">
+                Sign in to Add, rate or rivew
+              </h1>
+              <h1>
+                <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md">
+                  Share
+                </h1>
+              </h1>
+            </div>
           </div>
         </div>
       </div>

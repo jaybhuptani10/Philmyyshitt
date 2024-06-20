@@ -9,8 +9,16 @@ import Genre from "./components/General";
 import Themes from "./components/Themes";
 import General from "./components/General";
 import Title from "./components/Title";
+import { useDispatch, useSelector } from "react-redux";
 
 const Movie = () => {
+  // const dispatch = useDispatch();
+  // const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     dispatch(fetchUserProfile());
+  //   }
+  // }, [isLoggedIn, dispatch]);
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [selectedOption, setSelectedOption] = useState("Cast");
@@ -220,17 +228,29 @@ const Movie = () => {
                 </div>
               </div>
             </div>
-
-            <div className="m-5 w-[40vw] h-[30vh]  flex flex-col  justify-center gap-1 ">
-              <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md">
-                Sign in to Add, rate or rivew
-              </h1>
-              <h1>
-                <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md">
-                  Share
+            {/* {isLoggedIn ? (
+              <div className="m-5 w-[40vw] h-[30vh]  flex flex-col  justify-center gap-1 ">
+                <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md duration-500 transition-all cursor-pointer hover:scale-110">
+                  ADD
                 </h1>
-              </h1>
-            </div>
+                <h1>
+                  <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md duration-500 transition-all cursor-pointer hover:scale-110">
+                    Share
+                  </h1>
+                </h1>
+              </div>
+            ) : (
+              <div className="m-5 w-[40vw] h-[30vh]  flex flex-col  justify-center gap-1 ">
+                <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md duration-500 transition-all cursor-pointer hover:scale-110">
+                  Sign in to Add, rate or review
+                </h1>
+                <h1>
+                  <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md duration-500 transition-all cursor-pointer hover:scale-110">
+                    Share
+                  </h1>
+                </h1>
+              </div>
+            )} */}
           </div>
         </div>
       </div>

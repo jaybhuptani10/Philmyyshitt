@@ -24,9 +24,9 @@ const Page1 = () => {
         </h1>
       </div>
       <div className="sm:h-[15vh] sm:w-[55vh] box-2 text-white">
-        <button onClick={logout} className="primary max-w-sm mt-2">
+        {/* <button onClick={logout} className="primary max-w-sm mt-2">
           Logout
-        </button>
+        </button> */}
         {/* <h1 className="sm:text-2xl">Manage every Movie/Show you watch </h1>
         <h1 className="sm:text-2xl">Make Friends </h1>
         <h1 className="sm:text-2xl">Cinephiles Work Place </h1> */}

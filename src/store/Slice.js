@@ -1,5 +1,6 @@
+// src/store/userSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../axiosconfig.js" // Import axios with the interceptor setup
 
 // Async thunk for fetching user profile data
 export const fetchUserProfile = createAsyncThunk(
@@ -34,6 +35,7 @@ const userSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.isLoggedIn = false;
+      localStorage.removeItem("authToken"); // Clear the token on logout
     },
   },
   extraReducers: (builder) => {
@@ -44,6 +46,7 @@ const userSlice = createSlice({
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.user = action.payload;
+        state.isLoggedIn = true; // Set isLoggedIn to true on successful fetch
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.status = 'failed';

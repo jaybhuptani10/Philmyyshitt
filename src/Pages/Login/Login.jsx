@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -34,16 +34,18 @@ const LoginPage = () => {
     }
 
     try {
-      const userInfo = await axios.post("/user/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "/user/login",
+        { email, password },
+        { withCredentials: true }
+      );
+
+      const { token, user } = response.data;
+      localStorage.setItem("authToken", token); // Store token in local storage
 
       notify("Login successful!", "success");
-      // Dispatch login state action
-      dispatch(setUser({ user: userInfo.data, isLoggedIn: true }));
+      dispatch(setUser({ user, isLoggedIn: true }));
 
-      // Wait for 1 second before redirecting
       setTimeout(() => {
         navigate("/");
       }, 1000);

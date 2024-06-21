@@ -6,27 +6,16 @@ import Search from "./Search";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const status = useSelector((state) => state.user.status);
-  const error = useSelector((state) => state.user.error);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
       dispatch(fetchUserProfile());
     }
-  }, [isLoggedIn, dispatch]);
+  }, [dispatch, isLoggedIn]);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  if (status === "failed") {
-    return <div>Error: {error}</div>;
-  }
 
   return isLoggedIn ? (
     <div className="fixed w-full z-50 bg-transparent h-[10vh] flex items-center justify-center md:portrait:hidden sm:gap-10 nav ">

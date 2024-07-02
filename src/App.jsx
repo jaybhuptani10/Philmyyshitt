@@ -1,14 +1,14 @@
 import React from "react";
 import LandingPage from "./Pages/LandingPage/LandingPage";
-import Movie from "./Pages/Movie";
+import Movie from "./Pages/Movie/Movie";
 import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./Pages/Login/Register";
 import LoginPage from "./Pages/Login/Login";
 import SearchResults from "./Pages/SearchResults";
 import Series from "./Pages/Series";
-axios.defaults.baseURL = "https://philmyshitt-backend.vercel.app/";
-// axios.defaults.baseURL = "http://localhost:8000/";
+// axios.defaults.baseURL = "https://philmyshitt-backend.vercel.app/";
+axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.withCredentials = true; // This is to allow the frontend to send cookies to the backend
 const App = () => {
   return (

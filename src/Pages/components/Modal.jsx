@@ -96,7 +96,7 @@ const Modal = ({
             </h1>
           </div>
         ) : (
-          <div className="m-5 w-[40vw] h-[30vh]  flex flex-col  justify-center gap-1 ">
+          <div className="my-12 w-full p-5 h-[11vh]  flex flex-col  justify-center gap-1 ">
             <h1 className="bg-[#5b6875] w-[100%]  p-2 text-center rounded-md duration-500 transition-all cursor-pointer hover:scale-110">
               Sign in to Add, rate or review
             </h1>

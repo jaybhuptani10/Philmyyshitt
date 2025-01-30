@@ -8,12 +8,12 @@ import LoginPage from "./Pages/Login/Login";
 import SearchResults from "./Pages/SearchResults";
 import Series from "./Pages/Series";
 import Profile from "./Pages/Profile/Profile";
-import { fetchUserProfile } from "./store/Slice";
-import axios from "axios";
 import { setUser } from "./store/Slice";
+import axios from "axios";
 
 // Set axios defaults
-axios.defaults.baseURL = "http://localhost:8000/";
+// axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "https://philmyshitt-backend.vercel.app/";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -22,20 +22,26 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-
+    console.log(token);
+    console.log("Is logged in: ", isLoggedIn);
     if (token) {
+      console.log("Token found in local storage");
       axios
-        .get("/user/validate-token", {
-          headers: { Authorization: `Bearer ${token}` },
+        .get("/user/validateToken", {
+          headers: { Authorization: `Bearer ${token}` }, // Send token in Authorization header
         })
         .then((response) => {
           const { user } = response.data;
-
-          console.log(user);
           dispatch(setUser({ user, isLoggedIn: true }));
+        })
+        .catch((error) => {
+          console.error("Token validation failed", error);
+          // Token invalid or expired, log out the user
+          localStorage.removeItem("authToken");
+          dispatch(setUser({ user: null, isLoggedIn: false }));
         });
     }
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
 
   return (
     <BrowserRouter>

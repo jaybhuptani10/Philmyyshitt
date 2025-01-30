@@ -1,13 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/Slice";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -24,6 +24,25 @@ const LoginPage = () => {
       progress: undefined,
     });
   };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("authToken");
+  //   console.log("Token from local storage: ");
+  //   console.log(token);
+  //   if (token) {
+  //     axios
+  //       .get("/user/validate-token", {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       })
+  //       .then((response) => {
+  //         const { user } = response.data;
+  //         dispatch(setUser({ user, isLoggedIn: true }));
+  //       })
+  //       .catch(() => {
+  //         console.error("Invalid token");
+  //       });
+  //   }
+  // }, [dispatch, navigate]);
 
   const handleLoginSubmit = async (ev) => {
     ev.preventDefault();

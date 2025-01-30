@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchUserProfile } from "../../store/Slice";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "./Search";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
+  const user = useSelector((state) => state.user.user);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      dispatch(fetchUserProfile());
-    }
-  }, [dispatch, isLoggedIn]);
+    setUsername(user?.name);
+  }, [user]);
+  console.log(user);
+
+  const [hide, setHide] = useState(false);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  // useEffect(() => {
+  //   console.log("Navbar", isLoggedIn);
+  //   if (isLoggedIn) {
+  //     dispatch(fetchUserProfile());
+  //   }
+  // }, [dispatch, isLoggedIn]);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   return isLoggedIn ? (
-    <div className="fixed w-full z-50 bg-transparent h-[10vh] flex items-center justify-center md:portrait:hidden sm:gap-10 nav ">
+    <div className="fixed w-full z-50 bg-black h-[10vh] flex items-center justify-center md:portrait:hidden sm:gap-10 nav ">
       <h1
         onClick={() => navigate("/")}
         className="text-white uppercase text-xl tracking-tight cursor-pointer z-50"
@@ -36,21 +46,72 @@ const Navbar = () => {
       </div>
 
       {/* Navigation links */}
-      <div className="hidden xl:flex gap-10 items-center z-50">
+      <div className="hidden xl:flex   whitespace-nowrap items-center z-50 ">
         <h1
-          onClick={() => navigate("/login")}
-          className="text-white uppercase text-l tracking-tight cursor-pointer hover:text-gray-400"
+          onMouseEnter={() => setHide(true)}
+          onMouseLeave={() => setHide(false)}
+          className={`text-white w-[45%] text-center font-bold  uppercase text-l tracking-tight cursor-pointer  relative   ${
+            hide ? "bg-[#8899AA]" : "text-white"
+          }`}
         >
-          Profile
+          {username}
+          <ul
+            className={`absolute bg-[#8899AA] text-black text-xs flex flex-col gap-1 w-[100%]  border border-b-1 border-[#464646] transition-all duration-100 z-50 font-normal text-left ${
+              hide ? "block  " : "hidden"
+            }`}
+          >
+            <Link
+              to={"/"}
+              className=" border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 "
+            >
+              Home
+            </Link>
+            <Link
+              to={`/${username}`}
+              className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 "
+            >
+              Profile
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Films
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Series
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Diary
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Reviews
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Watchlist
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              List
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Likes
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Network
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Settings
+            </Link>
+            <Link className="border-black transition-all duration-200 p-1 px-3 hover:bg-slate-500 ">
+              Logout
+            </Link>
+          </ul>
         </h1>
 
-        <h1 className="text-white uppercase text-l tracking-tight cursor-pointer hover:text-gray-400">
+        <h1 className="text-white font-bold w-[20%] mx-2  uppercase text-l tracking-tight cursor-pointer hover:text-gray-400">
           Cinema
         </h1>
-        <h1 className="text-white uppercase text-l tracking-tight cursor-pointer hover:text-gray-400">
+        <h1 className="text-white font-bold w-[25%] mx-2 uppercase text-l tracking-tight cursor-pointer hover:text-gray-400">
           Members
         </h1>
-        <h1 className="text-white uppercase text-l tracking-tight cursor-pointer hover:text-gray-400">
+        <h1 className="text-white font-bold w-[25%] mx-2 uppercase text-l tracking-tight cursor-pointer hover:text-gray-400">
           For you
         </h1>
         <Search />

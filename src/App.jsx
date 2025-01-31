@@ -12,7 +12,8 @@ import { setUser } from "./store/Slice";
 import axios from "axios";
 
 // Set axios defaults
-axios.defaults.baseURL = "http://localhost:8000/";
+// axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = import.meta.env.VITE_baseURL;
 // axios.defaults.baseURL = "https://philmyshitt-backend.vercel.app/";
 axios.defaults.withCredentials = true;
 

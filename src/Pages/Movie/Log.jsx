@@ -11,11 +11,30 @@ const Log = ({
   rating,
   setRating,
 }) => {
-  useEffect(() => {
-    if (watched) {
-      setAdd(false);
-    }
-  }, [watched, setAdd]);
+  const handleLikeClick = () => {
+    setLiked((prev) => {
+      if (!prev) setWatched(true); // If liking, set watched to true
+      return !prev;
+    });
+  };
+  const handleWatchedClick = () => {
+    setWatched((prevWatched) => {
+      const newWatchedState = !prevWatched;
+      if (newWatchedState) {
+        setAdd(false); // Remove from watchlist if marked as watched
+      }
+      return newWatchedState;
+    });
+  };
+  const handleAddClick = () => {
+    setAdd((prev) => {
+      if (!prev) {
+        setWatched(false); // If adding to watchlist, reset watched and liked
+        setLiked(false);
+      }
+      return !prev;
+    });
+  };
 
   return (
     <div className="m-5  hidden sm:my-10 w-[40vw] h-[30vh]  sm:flex flex-col  justify-center gap-1 ">
@@ -23,9 +42,7 @@ const Log = ({
         <h1 className="text-xs gap-2 flex flex-col justify-center items-center uppercase font-bold cursor-pointer hover:text-white text-[#C8C8C8]">
           {" "}
           <svg
-            onClick={() => {
-              setWatched(!watched);
-            }}
+            onClick={handleWatchedClick}
             viewBox="0 0 1024 1024"
             className={`w-10 duration-200 transition-all h-10 cursor-pointer ${
               watched ? "text-[#80ED99]" : "text-white"
@@ -39,7 +56,7 @@ const Log = ({
         <h1 className="text-xs flex  gap-2 flex-col justify-center items-center uppercase font-bold cursor-pointer hover:text-white text-[#C8C8C8]">
           {" "}
           <svg
-            onClick={() => setLiked(!liked)}
+            onClick={handleLikeClick}
             viewBox="0 0 1024 1024"
             className={`w-10 duration-200 transition-all h-10 cursor-pointer ${
               liked ? "text-[#FE7F2D]" : ""
@@ -53,7 +70,7 @@ const Log = ({
         <h1 className="text-xs gap-2 flex flex-col justify-center items-center uppercase font-bold cursor-pointer hover:text-white text-[#C8C8C8]">
           {" "}
           <svg
-            onClick={() => setAdd(!add)}
+            onClick={handleAddClick}
             viewBox="0 0 24 24"
             className={`w-10 duration-200 transition-all h-10 cursor-pointer ${
               add ? "text-blue-400" : ""
